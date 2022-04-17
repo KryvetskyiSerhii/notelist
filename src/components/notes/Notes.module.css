@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Ms+Madi&display=swap');
+* {
+font-family: 'Ms Madi';
+font-size: 18px;
+font-weight: 600;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    grid-area: 'side';
+}
+
+.addButton {
+    border: 1px solid black;
+    width: 68px;
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.note {
+    margin: 10px 0px;
+    border: 1px solid black;
+    padding-left: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.titleButton {
+    cursor: pointer;
+}
