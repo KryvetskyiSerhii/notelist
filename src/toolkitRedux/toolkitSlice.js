@@ -1,26 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-
+const filterState = {
+  notesList : [
+    {
+      id: "4",
+      noteTitle: "1",
+      noteBody: "12",
+      date: Date(),
+    },
+    {
+      id: "2",
+      noteTitle: "note",
+      noteBody: "gdfgdf",
+      date: Date(),
+    },
+  ]
+}
 
 
 const toolkitSlice = createSlice({
     name: 'toolkit',
     initialState: {
-        notesList: [
-          {
-            id: "4",
-            noteTitle: "1",
-            noteBody: "12",
-            date: Date(),
-          },
-          {
-            id: "2",
-            noteTitle: "note",
-            noteBody: "gdfgdf",
-            date: Date(),
-          },
-        ],
+        ...filterState, notesList: [...filterState.notesList]
       },
     reducers: {
         addNote(state, action) {
@@ -30,8 +32,8 @@ const toolkitSlice = createSlice({
                 noteBody: action.payload.newNoteBody,
                 date: Date(),
               };
-              state.notesList.push(newNote)
-              state.notesListFilter.push(newNote)   
+              state.notesList.push(newNote)  
+              filterState.notesList.push(newNote)
         },
        editNote (state, action) {
         let newNote = {
@@ -44,14 +46,16 @@ const toolkitSlice = createSlice({
             (e) => e.id === action.payload.id
           );
           state.notesList.splice(targetIdPosition, 1, newNote);
+          filterState.notesList.splice(targetIdPosition, 1, newNote)
        },
        deleteNote (state, action) {
         state.notesList = state.notesList.filter((e) => e.id !== action.payload);
+        filterState.notesList = filterState.notesList.filter(e => e.id !== action.payload)
        },
-       searchNote (state, action, notesListFilter ) {
+       searchNote (state, action) {
         let newFilteredState = { ...state, notesList: [...state.notesList] }; 
         newFilteredState.notesList = newFilteredState.notesList.filter((e) => e.noteTitle.toLowerCase().includes(action.payload))
-        if (action.payload.trim() === '') return state
+        if (action.payload.trim() === '') return filterState
         else return newFilteredState
        },
        sortNotesByTitle (state) {

@@ -1,12 +1,12 @@
 import { useFormik } from "formik";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import classes from "./NotesForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { editNote, deleteNote } from "../../toolkitRedux/toolkitSlice";
+import classes from "./../Form/NotesForm.module.css"
+import * as Yup from "yup";
 
-
-const NotesEdit = ({ ...props }) => {
+const EditNotes = ({ ...props }) => {
   const { id } = useParams();
   const dispatch = useDispatch()
   const notes = useSelector(state => state.notes.notesList)
@@ -17,11 +17,23 @@ const NotesEdit = ({ ...props }) => {
     newNoteBody: "",
   };
 
+  const validationSchema = Yup.object({
+    newNoteTitle: Yup.string()
+      .max(120, "Must be no more than 120 characters")
+      .min(3, "Must be at least 4 characters")
+      .required("Required field"),
+    newNoteBody: Yup.string()
+      .max(500, "Must be no more than 120 characters")
+      .min(5, "Must be at least 6 characters")
+      .required("Required field"),
+  });
+
   const {setFieldValue ,...formik} = useFormik({
     initialValues: initialValues,
     onSubmit: async (value) => {
       await editRecentNote(value);
     },
+    validationSchema: validationSchema
   });
 
   useEffect(() => {
@@ -60,6 +72,7 @@ const NotesEdit = ({ ...props }) => {
         onChange={formik.handleChange}
         value={formik.values.newNoteTitle}
       />
+      {formik.errors.newNoteTitle && <div className={classes.error}>{formik.errors.newNoteTitle}</div>}
       <textarea
         className={classes.text}
         id="newNoteBody"
@@ -67,6 +80,7 @@ const NotesEdit = ({ ...props }) => {
         onChange={formik.handleChange}
         value={formik.values.newNoteBody}
       ></textarea>
+      {formik.errors.newNoteBody && <div className={classes.errorBody}>{formik.errors.newNoteBody}</div>}
       <div>
         <button type="submit">Save</button>
         <button onClick={deleteRecentNote} type="button">
@@ -77,4 +91,4 @@ const NotesEdit = ({ ...props }) => {
   );
 };
 
-export default NotesEdit;
+export default EditNotes;

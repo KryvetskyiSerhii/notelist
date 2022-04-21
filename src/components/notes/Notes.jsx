@@ -36,7 +36,7 @@ const Notes = (props) => {
             <NavLink to="/main/" className={classes.link}>Add Note</NavLink>
             </div>
             {notes.map(element=> {
-                return <Note id={element.id} title={element.noteTitle} key={`note-${element.id}` } />
+                return <Note id={element.id} title={element.noteTitle} key={`note-${element.id}` } date={element.date}/>
             })}
         </div>
     )

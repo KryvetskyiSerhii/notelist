@@ -1,10 +1,11 @@
 import { useFormik } from "formik";
-import classes from "./NotesForm.module.css";
 import * as Yup from "yup";
 import {useDispatch} from 'react-redux'
 import { addNote } from "../../toolkitRedux/toolkitSlice";
+import Form from "../Form/Form";
+import classes from "./../Form/NotesForm.module.css"
 
-const NotesCreate = (props) => {
+const CreateNotes = (props) => {
   
   const dispatch = useDispatch()
   
@@ -36,29 +37,13 @@ const NotesCreate = (props) => {
     validationSchema: validationSchema,
   });
     return (
-    <form onSubmit={formik.handleSubmit} className={classes.form}>
-      
-      <input
-        className={classes.titleInput}
-        id="newNoteTitle"
-        name="newNoteTitle"
-        type="text"
-        onChange={formik.handleChange}
-      />
-      {formik.errors.newNoteTitle && <div className={classes.error}>{formik.errors.newNoteTitle}</div>}
-      
-      <textarea
-        className={classes.text}
-        id="newNoteBody"
-        name="newNoteBody"
-        type="textarea"
-        onChange={formik.handleChange}
-      />
-      {formik.errors.newNoteBody && <div className={classes.errorBody}>{formik.errors.newNoteBody}</div>}
-      
-      <button type="submit">Submit</button>
-    </form>
+      <div>
+      <div className={classes.create}>
+        <Form formik={formik}/>
+        <button type="submit" onClick={formik.handleSubmit} className={classes.submit}>Submit</button>
+      </div>
+      </div>
   );
 };
 
-export default NotesCreate;
+export default CreateNotes;
