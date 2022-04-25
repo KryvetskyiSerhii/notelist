@@ -26,7 +26,7 @@ const toolkitSlice = createSlice({
       },
     reducers: {
         addNote(state, action) {
-            let newNote = {
+            const newNote = {
                 id: Date(),
                 noteTitle: action.payload.newNoteTitle,
                 noteBody: action.payload.newNoteBody,
@@ -36,13 +36,13 @@ const toolkitSlice = createSlice({
               filterState.notesList.push(newNote)
         },
        editNote (state, action) {
-        let newNote = {
+        const newNote = {
             id: action.payload.id,
             noteTitle: action.payload.newNoteTitle,
             noteBody: action.payload.newNoteBody,
             date: Date(),
           };
-        let targetIdPosition = state.notesList.findIndex(
+        const targetIdPosition = state.notesList.findIndex(
             (e) => e.id === action.payload.id
           );
           state.notesList.splice(targetIdPosition, 1, newNote);
@@ -53,7 +53,7 @@ const toolkitSlice = createSlice({
         filterState.notesList = filterState.notesList.filter(e => e.id !== action.payload)
        },
        searchNote (state, action) {
-        let newFilteredState = { ...state, notesList: [...state.notesList] }; 
+        const newFilteredState = { ...state, notesList: [...state.notesList] }; 
         newFilteredState.notesList = newFilteredState.notesList.filter((e) => e.noteTitle.toLowerCase().includes(action.payload))
         if (action.payload.trim() === '') return filterState
         else return newFilteredState

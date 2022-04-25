@@ -6,20 +6,19 @@ import { searchNote, sortNotesByDate, sortNotesByTitle } from '../../toolkitRedu
  
 
 
-const Notes = (props) => {
+const Notes = () => {
     const dispatch = useDispatch()
     const notes = useSelector(state => state.notes.notesList)
-    const notesFilter = useSelector(state => state.notes.notesListFilter)
 
-    let searchNotes = (e) => {
+    const searchNotes = (e) => {
         dispatch(searchNote(e.target.value))
     }
 
-    let sortNotesTitle = () => {
+    const sortNotesTitle = () => {
         dispatch(sortNotesByTitle())
     }    
 
-    let sortNotesDate = () => {
+    const sortNotesDate = () => {
        dispatch(sortNotesByDate())
     }
     
@@ -35,9 +34,8 @@ const Notes = (props) => {
             <div className={classes.addButton}>
             <NavLink to="/main/" className={classes.link}>Add Note</NavLink>
             </div>
-            {notes.map(element=> {
-                return <Note id={element.id} title={element.noteTitle} key={`note-${element.id}` } date={element.date}/>
-            })}
+            {notes.map(element=> <Note id={element.id} title={element.noteTitle} key={`note-${element.id}` } date={element.date}/>
+            )}
         </div>
     )
 }
