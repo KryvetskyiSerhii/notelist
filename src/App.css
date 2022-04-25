@@ -1,0 +1,10 @@
+.appWrapper {
+    display: grid;
+    grid-template-areas: 
+    "side main";
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 4fr 8fr;
+    gap: 2px;
+    max-width: 1000px;
+    margin: 50px auto;
+}
